@@ -1,0 +1,53 @@
+import java.io.*;
+
+public class FileOperations {
+
+    public static void main(String[] args) {
+        String filePath = "example.txt";
+
+        // Write to the file
+        writeToFile(filePath, "Hello, this is a sample text file.\nWelcome to file operations in Java!");
+
+        // Read from the file
+        readFromFile(filePath);
+
+        // Modify the file (append text)
+        appendToFile(filePath, "\nThis line is appended to the file.");
+
+        // Read the file again to verify modification
+        readFromFile(filePath);
+    }
+
+    // Method to write to a file
+    public static void writeToFile(String filePath, String content) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write(content);
+            System.out.println("File written successfully.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file: " + e.getMessage());
+        }
+    }
+
+    // Method to read from a file
+    public static void readFromFile(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            System.out.println("\nReading from file:");
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file: " + e.getMessage());
+        }
+    }
+
+    // Method to append to a file
+    public static void appendToFile(String filePath, String content) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(content);
+            System.out.println("Content appended successfully.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while appending to the file: " + e.getMessage());
+        }
+    }
+}
